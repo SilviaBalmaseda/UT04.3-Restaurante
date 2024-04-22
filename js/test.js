@@ -26,8 +26,7 @@ function testRestaurante() {
 
         try {
             // EmptyValueException.
-            let d1 = new Dish("", "descripcion", array, "ejem.jpg");
-            console.log(d1.toString());
+            let d1 = new Dish("", "descripcion");
         } catch (error) {
             console.log(error);
         }
@@ -35,15 +34,13 @@ function testRestaurante() {
         try {
             // InvalidValueException
             let d1 = new Dish(55);
-            console.log(d1.toString());
         } catch (error) {
             console.log(error);
         }
 
         try {
-            // InvalidValueException
-            let d1 = new Dish("name", "");
-            console.log(d1.toString());
+            // EmptyValueException
+            let d1 = new Dish();
         } catch (error) {
             console.log(error);
         }
@@ -63,7 +60,6 @@ function testRestaurante() {
         try {
             // EmptyValueException.
             let c1 = new Category();
-            console.log(c1.toString());
         } catch (error) {
             console.log(error);
         }
@@ -71,7 +67,6 @@ function testRestaurante() {
         try {
             // InvalidValueException
             let c1 = new Category(55, "Descripcion");
-            console.log(c1.toString());
         } catch (error) {
             console.log(error);
         }
@@ -91,7 +86,6 @@ function testRestaurante() {
         try {
             // EmptyValueException.
             let a2 = new Allergen("");
-            console.log(a2.toString());
         } catch (error) {
             console.log(error);
         }
@@ -99,7 +93,6 @@ function testRestaurante() {
         try {
             // InvalidValueException
             let a2 = new Allergen(55);
-            console.log(a2.toString());
         } catch (error) {
             console.log(error);
         }
@@ -119,7 +112,6 @@ function testRestaurante() {
         try {
             // EmptyValueException.
             let m2 = new Menu("");
-            console.log(m2.toString());
         } catch (error) {
             console.log(error);
         }
@@ -127,7 +119,6 @@ function testRestaurante() {
         try {
             // InvalidValueException
             let m2 = new Menu(55);
-            console.log(m2.toString());
         } catch (error) {
             console.log(error);
         }
@@ -146,7 +137,6 @@ function testRestaurante() {
         try {
             // InvalidValueException.
             let co2 = new Coordinate(10);
-            console.log(co2.toString());
         } catch (error) {
             console.log(error);
         }
@@ -154,7 +144,6 @@ function testRestaurante() {
         try {
             // InvalidValueException
             let co2 = new Coordinate("prueba");
-            console.log(co2.toString());
         } catch (error) {
             console.log(error);
         }
@@ -174,7 +163,6 @@ function testRestaurante() {
         try {
             // EmptyValueException.
             let r2 = new Restaurant("");
-            console.log(r2.toString());
         } catch (error) {
             console.log(error);
         }
@@ -182,7 +170,6 @@ function testRestaurante() {
         try {
             // InvalidValueException
             let r2 = new Restaurant("Restaurante", "descripcion", "d");
-            console.log(r2.toString());
         } catch (error) {
             console.log(error);
         }

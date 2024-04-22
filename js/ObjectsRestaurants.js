@@ -1,11 +1,8 @@
 "use strict";
 import {
-    BaseException,
     InvalidAccessConstructorException,
     EmptyValueException,
-    ParameterValidationException,
-    InvalidValueException,
-    AbstractClassException
+    InvalidValueException
 } from './Exceptions.js';
 
 // Expresion para un nombre(name).
@@ -25,6 +22,8 @@ class Dish {
     #image;
 
     constructor(name, description, ingredients, image) {
+        if (!new.target) throw new InvalidAccessConstructorException();
+
         if (name === 'undefined' || name === '' || !name) throw new EmptyValueException("name");
         if (nombre.test(name) !== true)
             throw new InvalidValueException("name", name);
@@ -94,6 +93,8 @@ class Category {
     #description;
 
     constructor(name, description) {
+        if (!new.target) throw new InvalidAccessConstructorException();
+
         if (name === 'undefined' || name === '' || !name) throw new EmptyValueException("name");
         if (nombre.test(name) !== true)
             throw new InvalidValueException("name", name);
@@ -135,6 +136,8 @@ class Allergen {
     #description;
 
     constructor(name, description) {
+        if (!new.target) throw new InvalidAccessConstructorException();
+
         if (name === 'undefined' || name === '' || !name) throw new EmptyValueException("name");
         if (nombre.test(name) !== true)
             throw new InvalidValueException("name", name);
@@ -176,6 +179,8 @@ class Menu {
     #description;
 
     constructor(name, description) {
+        if (!new.target) throw new InvalidAccessConstructorException();
+
         if (name === 'undefined' || name === '' || !name) throw new EmptyValueException("name");
         if (nombre.test(name) !== true)
             throw new InvalidValueException("name", name);
@@ -217,6 +222,8 @@ class Coordinate {
     #longitude;
 
     constructor(latitude = 0, longitude = 0) {
+        if (!new.target) throw new InvalidAccessConstructorException();
+
         latitude = typeof latitude !== 'undefined' ? Number(latitude).valueOf() : 0;
         if (Number.isNaN(latitude) || latitude < -90 || latitude > 90 || !latitude)
             throw new InvalidValueException("latitude", latitude);
@@ -260,6 +267,8 @@ class Restaurant {
     #location;
 
     constructor(name, description, location) {
+        if (!new.target) throw new InvalidAccessConstructorException();
+
         if (name === 'undefined' || name === '' || !name) throw new EmptyValueException("name");
         if (nombre.test(name) !== true)
             throw new InvalidValueException("name", name);
