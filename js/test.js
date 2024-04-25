@@ -225,32 +225,36 @@ function testRestaurante() {
             // console.log(manager.assignDishToMenu(dis1, men1, men2)); // El console para comprobar que los datos se han asignado bien.
 
             console.log("Métodos de deassign...");
-            manager.deassignCategoryToDish(cat2, dis2);
-            manager.deassignAllergenToDish(all2, dis1);
-            manager.deassignDishToMenu(dis1, men2);
+            // manager.deassignCategoryToDish(cat2, dis2);
+            // manager.deassignAllergenToDish(all2, dis1);
+            // manager.deassignDishToMenu(dis1, men2);
             // console.log(manager.deassignDishToMenu(dis1, men2)); // El console para comprobar que los datos se han designado bien.
 
+            console.log("Métodos de changeDishesPositionsInMenu...");
+            // manager.changeDishesPositionsInMenu(men1, dis1, dis2);
 
+            console.log("Métodos de getDishesInCategory...");
+            // manager.getDishesInCategory(cat2);
 
+            console.log("Métodos de getDishesWithAllergen...");
+            manager.getDishesWithAllergen(all2);
 
-            // Criterio.
-            const criterion = (dish) => dish.name === "Plato";
+            // console.log("Métodos de findDishes...");
+            // // Criterio.
+            // const criterion = (dish) => dish.name === "Plato";
 
-            // Para que este ordenado.
-            const ordered = (a, b) => a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase();
+            // // Para que este ordenado.
+            // const ordered = (a, b) => a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase();
 
-            console.log("Métodos de findDishes...");
+            // for (let da of manager.findDishes(criterion, ordered)) {
+            //     console.log(da);
+            // }
 
-            for (let da of manager.findDishes(dis1, criterion, ordered)) {
-                console.log(da);
-            }
-
-
-            console.log("Métodos de remove...");
+            // console.log("Métodos de remove...");
             // manager.removeCategory(cat2);
             // manager.removeMenu(men2);
             // manager.removeAllergen(all2);
-            // manager.removeDish(dis2);
+            // manager.removeDish(dis1);
             // console.log(manager.removeRestaurant(res2)); // El console para comprobar que los datos se han eliminado bien.
 
         } catch (error) {

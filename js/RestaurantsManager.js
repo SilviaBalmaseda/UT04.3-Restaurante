@@ -148,11 +148,12 @@ let RestaurantsManager = (function () {
                     if (!this.#categories.has(elem.name)) throw new RegisteredException(elem.name);
 
                     this.#dishes.entries().forEach(([key, value]) => {
-                        let categor = value.categories.values().next().value; // Variable para comprobar que es esa categoría.
-                        if (categor === elem) {
-                            // Desasignar los platos.
-                            this.deassignCategoryToDish(elem, value.elem);
-                        }
+                        value.categories.entries().forEach(([keyC, valueC]) => {
+                            if (valueC === elem) {
+                                // Desasignar los platos.
+                                this.deassignCategoryToDish(elem, value.elem);
+                            }
+                        });
                     });
 
                     // Eliminar la categoría.
@@ -179,11 +180,12 @@ let RestaurantsManager = (function () {
                     if (!this.#allergens.has(elem.name)) throw new RegisteredException(elem.name);
 
                     this.#dishes.entries().forEach(([key, value]) => {
-                        let allerge = value.allergens.values().next().value; // Variable para comprobar que es ese alérgeno.
-                        if (allerge === elem) {
-                            // Desasignar los platos.
-                            this.deassignAllergenToDish(elem, value.elem);
-                        }
+                        value.allergens.entries().forEach(([keyA, valueA]) => {
+                            if (valueA === elem) {
+                                // Desasignar los platos.
+                                this.deassignAllergenToDish(elem, value.elem);
+                            }
+                        });
                     });
 
                     this.#allergens.delete(elem.name);
@@ -197,26 +199,17 @@ let RestaurantsManager = (function () {
                     // Los platos no están registrados.
                     if (!this.#dishes.has(elem.name)) throw new RegisteredException(elem.name);
 
-                    // Comprobar si tiene categorías ese plato.
-                    if (this.#dishes.get(elem.name).categories.size !== 0) {
-                        let ite = this.#dishes.get(elem.name).categories.values(); // Iterador.
-                        let des = ite.next().value; // Variable para desasignar la categoría.
-                        this.deassignCategoryToDish(des, elem); // Desasignar las categorías.
-                    }
-
-                    // Comprobar si tiene alérgenos ese plato.
-                    if (this.#dishes.get(elem.name).allergens.size !== 0) {
-                        let des = this.#dishes.get(elem.name).allergens.values().next().value; // Variable para desasignar el alérgeno.
-
-                        this.deassignAllergenToDish(des, elem); // Desasignar los alérgenos.
-                    }
+                    // No hace falta desasignar alérgenos y categorías porque se elimina.
 
                     // Comprobar si tiene platos ese menu.
-                    if (this.#menus.values().next().value.dishes.size !== 0) {
-                        let des = this.#menus.values().next().value.elem; // Variable para desasignar el menú.
-
-                        this.deassignDishToMenu(elem, des); // Desasignar los menús.
-                    }
+                    this.#menus.entries().forEach(([key, value]) => {
+                        value.dishes.entries().forEach(([keyD, valueD]) => {
+                            if (valueD === elem) {
+                                // Desasignar los platos.
+                                this.deassignDishToMenu(elem, value.elem);
+                            }
+                        });
+                    });
 
                     // Eliminar el plato.
                     this.#dishes.delete(elem.name);
@@ -381,29 +374,79 @@ let RestaurantsManager = (function () {
                 return this;
             }
 
+            // Intercambia las posiciones de dos platos en un menú. 
+            changeDishesPositionsInMenu(men, dis1, dis2) {
+                // Menu no puede ser NULL.
+                if (men === undefined) throw new NullObjectException();
+                if (!(men instanceof Menu)) throw new ObjectException("Menu");
+                
+                // Dish no puede ser NULL.
+                if (dis1 === undefined || dis2 === undefined) throw new NullObjectException();
+                if (!(dis1 instanceof Dish) || !(dis2 instanceof Dish)) throw new ObjectException("Dish");
+            
+                let array = this.#menus.get(men.name).dishes;
+                let pos1 = array.findIndex((x) => x.name === dis1.name);
+
+                // let arrayD = this.#menus.get(menu.name).dishes;
+                // let pos1 = arrayD.findIndex((x) => x.name === dish1.name);
+                // let pos2 = arrayD.findIndex((x) => x.name === dish2.name);
+          
+                // if (pos1 !== -1 && pos2 !== -1) {
+                //   let temp = arrayD[pos1];
+                //   arrayD[pos1] = arrayD[pos2];
+                //   arrayD[pos2] = temp;
+                // } else {
+                //   throw new NotAssignedException();
+                // }
+            }
+
+            // Obtiene un iterador con la relación de los platos a una categoría. 
+            // El iterador puede estar ordenado.
+            getDishesInCategory(cat, func) {
+                // Category es null.
+                if (cat === undefined) throw new NullObjectException();
+                // Category no está registrado
+                if (!this.#dishes.has(cat.name)) throw new RegisteredException(cat.name);
 
 
 
-            // const orden = (a, b) => a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase();
+            }
 
-            // const criterio = (dish) => dish.name === "Plato";
+            // Obtiene un iterador con los platos que tiene un determinado alérgeno. 
+            // El iterador puede estar ordenado
+            getDishesWithAllergen(all, func) {
+                // Allergen es null.
+                if (all === undefined) throw new NullObjectException();
+                // Allergen no está registrado
+                // if (!this.#dishes.has(all.name)) throw new RegisteredException(all.name);
+                console.log(all);
+                this.#dishes.entries().forEach(([key, value]) => {
+                    value.allergens.entries().forEach(([keyA, valueA]) => {
+                        if (valueA === all) {
+                            console.log(value.elem);
+                            // Devolver el iterador.
+                        }
+                    });
+                });
+
+            }
+
 
             // Obtiene un iterador que cumpla un criterio concreto en base a una función de callback.
-            *findDishes(dis, criterion, ordered) {
-
-                // Dish no puede ser NULL.
-                if (dis === undefined) throw new NullObjectException();
-
-                // Si Dish no está registrado.
-                if (!this.#dishes.has(dis.name)) throw new RegisteredException(dis.name);
-
+            *findDishes(criterion, ordered) {
                 let array = []; // Variable para ordenar los datos.
 
                 // Si coincide con el criterio pasado, se añade al array.
-                if (this.#dishes.values()) {
-                    if (criterion(dis)) array.push(dis);
-                }
+                for (const d of this.#dishes.values()){
+                    // Dish no puede ser NULL.
+                    if (d.elem === undefined) throw new NullObjectException();
 
+                    // Si Dish no está registrado.
+                    if (!this.#dishes.has(d.elem.name)) throw new RegisteredException(d.name);
+
+                    if (criterion(d.elem)) array.push(d.elem);
+                }
+               
                 // El iterador puede estar ordenado.
                 if (ordered) {
                     array.sort(ordered);
