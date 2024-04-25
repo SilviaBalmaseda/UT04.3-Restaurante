@@ -28,13 +28,22 @@ class Dish {
         if (nombre.test(name) !== true)
             throw new InvalidValueException("name", name);
 
-        if (descripcion.test(description) !== true)
-            throw new InvalidValueException("description", description);
+        // No son obligatorias.
+        if (description || description === '') {
+            if (description === 'undefined' || description === '') throw new EmptyValueException("description");
+            if (descripcion.test(description) !== true)
+                throw new InvalidValueException("description", description);
+        }
 
-        if (!(Array.isArray(ingredients))) throw EmptyValueException("ingredients");
+        if (ingredients) {
+            if (!(Array.isArray(ingredients))) throw EmptyValueException("ingredients");
+        }
 
-        if (ruta.test(image) !== true)
-            throw new InvalidValueException("image", image);
+        if (image) {
+            if (image === 'undefined' || image === '') throw new EmptyValueException("image");
+            if (ruta.test(image) !== true)
+                throw new InvalidValueException("image", image);
+        }
 
         this.#name = name;
         this.#description = description;
@@ -99,8 +108,12 @@ class Category {
         if (nombre.test(name) !== true)
             throw new InvalidValueException("name", name);
 
-        if (descripcion.test(description) !== true)
-            throw new InvalidValueException("description", description);
+        // No son obligatorias.
+        if (description) {
+            if (description === 'undefined' || description === '') throw new EmptyValueException("description");
+            if (descripcion.test(description) !== true)
+                throw new InvalidValueException("description", description);
+        }
 
         this.#name = name;
         this.#description = description;
@@ -142,8 +155,12 @@ class Allergen {
         if (nombre.test(name) !== true)
             throw new InvalidValueException("name", name);
 
-        if (descripcion.test(description) !== true)
-            throw new InvalidValueException("description", description);
+        // No son obligatorias.
+        if (description) {
+            if (description === 'undefined' || description === '') throw new EmptyValueException("description");
+            if (descripcion.test(description) !== true)
+                throw new InvalidValueException("description", description);
+        }
 
         this.#name = name;
         this.#description = description;
@@ -185,8 +202,12 @@ class Menu {
         if (nombre.test(name) !== true)
             throw new InvalidValueException("name", name);
 
-        if (descripcion.test(description) !== true)
-            throw new InvalidValueException("description", description);
+        // No son obligatorias.
+        if (description) {
+            if (description === 'undefined' || description === '') throw new EmptyValueException("description");
+            if (descripcion.test(description) !== true)
+                throw new InvalidValueException("description", description);
+        }
 
         this.#name = name;
         this.#description = description;
@@ -273,10 +294,16 @@ class Restaurant {
         if (nombre.test(name) !== true)
             throw new InvalidValueException("name", name);
 
-        if (descripcion.test(description) !== true)
-            throw new InvalidValueException("description", description);
+        // No son obligatorias.
+        if (description) {
+            if (description === 'undefined' || description === '') throw new EmptyValueException("description");
+            if (descripcion.test(description) !== true)
+                throw new InvalidValueException("description", description);
+        }
 
-        if (!(location instanceof Coordinate)) throw new InvalidValueException("location", location);
+        if (location) {
+            if (!(location instanceof Coordinate)) throw new InvalidValueException("location", location);
+        }
 
         this.#name = name;
         this.#description = description;

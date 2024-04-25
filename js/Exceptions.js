@@ -61,6 +61,38 @@ class PositionOutBoundsException extends BaseException {
     }
 }
 
+// Excepción personalizada para indicar que el objeto pasado no es del tipo de objeto que se pide.
+class ObjectException extends BaseException {
+    constructor(object, fileName, lineNumber) {
+        super(`Error: The passed object is not a ${object} object.`, fileName, lineNumber);
+        this.name = "ObjectException";
+    }
+}
+
+// Excepción personalizada para indicar que el objeto ya existe.
+class ExistsObjectException extends BaseException {
+    constructor(object, fileName, lineNumber) {
+        super(`Error: The object ${object} already exists.`, fileName, lineNumber);
+        this.name = "ExistsObjectException";
+    }
+}
+
+// Excepción personalizada para indicar que el objeto no está registrado.
+class RegisteredException extends BaseException {
+    constructor(object, fileName, lineNumber) {
+        super(`Error: Object ${object} is not registered.`, fileName, lineNumber);
+        this.name = "RegisteredException";
+    }
+}
+
+// Excepción personalizada para indicar que el objeto es NULL.
+class NullObjectException extends BaseException {
+    constructor(fileName, lineNumber) {
+        super(`Error: The object is NULL.`, fileName, lineNumber);
+        this.name = "NullObjectException";
+    }
+}
+
 export {
     BaseException,
     InvalidAccessConstructorException,
@@ -68,5 +100,9 @@ export {
     ParameterValidationException,
     InvalidValueException,
     AbstractClassException,
-    PositionOutBoundsException
+    PositionOutBoundsException,
+    ObjectException,
+    ExistsObjectException,
+    RegisteredException,
+    NullObjectException
 };
