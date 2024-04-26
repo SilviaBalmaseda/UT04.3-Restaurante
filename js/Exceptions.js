@@ -93,6 +93,14 @@ class NullObjectException extends BaseException {
     }
 }
 
+// Excepción personalizada para indicar que no se encontro el Objeto.
+class NotFoundObjectException extends BaseException {
+    constructor(object, fileName, lineNumber) {
+        super(`Error: The object ${object} not found.`, fileName, lineNumber);
+        this.name = "NotFoundObjectException";
+    }
+}
+
 export {
     BaseException,
     InvalidAccessConstructorException,
@@ -104,5 +112,6 @@ export {
     ObjectException,
     ExistsObjectException,
     RegisteredException,
-    NullObjectException
+    NullObjectException,
+    NotFoundObjectException
 };

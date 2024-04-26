@@ -185,6 +185,7 @@ function testRestaurante() {
             console.log("Métodos de Create...");
             const dis1 = manager.createDish("Plato", "des", ["array"], "image.jpg");
             const dis2 = manager.createDish("Pla");
+            const dis3 = manager.createDish("Prueba");
             const men1 = manager.createMenu("Menu", "des");
             const men2 = manager.createMenu("Men");
             const all1 = manager.createAllergen("Alergeno", "des");
@@ -195,7 +196,7 @@ function testRestaurante() {
             const res2 = manager.createRestaurant("Res");
 
             console.log("Métodos de add...");
-            manager.addDish(dis1, dis2);
+            manager.addDish(dis1, dis2, dis3);
             manager.addMenu(men1, men2);
             manager.addAllergen(all1, all2);
             manager.addCategory(cat1, cat2);
@@ -222,41 +223,46 @@ function testRestaurante() {
             manager.assignCategoryToDish(cat2, dis1, dis2);
             manager.assignAllergenToDish(all2, dis1, dis2);
             manager.assignDishToMenu(dis1, men1, men2);
+            manager.assignDishToMenu(dis3, men1, men2);
+            manager.assignDishToMenu(dis2, men1, men2);
             // console.log(manager.assignDishToMenu(dis1, men1, men2)); // El console para comprobar que los datos se han asignado bien.
 
             console.log("Métodos de deassign...");
-            // manager.deassignCategoryToDish(cat2, dis2);
-            // manager.deassignAllergenToDish(all2, dis1);
-            // manager.deassignDishToMenu(dis1, men2);
+            manager.deassignCategoryToDish(cat2, dis2);
+            manager.deassignAllergenToDish(all2, dis1);
+            manager.deassignDishToMenu(dis1, men2);
             // console.log(manager.deassignDishToMenu(dis1, men2)); // El console para comprobar que los datos se han designado bien.
 
+            // Criterio.
+            const criterion = (dish) => dish.name === "Plato";
+
+            // Función para ordenar.
+            const ordered = (a, b) => a.name.toLocaleLowerCase().localeCompare(b.name.toLocaleLowerCase());
+        
             console.log("Métodos de changeDishesPositionsInMenu...");
-            // manager.changeDishesPositionsInMenu(men1, dis1, dis2);
+            manager.changeDishesPositionsInMenu(men1, dis1, dis2);
 
             console.log("Métodos de getDishesInCategory...");
-            // manager.getDishesInCategory(cat2);
+            for (let diss of manager.getDishesInCategory(cat2, ordered)) {
+                console.log(diss);
+            }
 
             console.log("Métodos de getDishesWithAllergen...");
-            manager.getDishesWithAllergen(all2);
+            for (let diss of manager.getDishesWithAllergen(all2, ordered)) {
+                console.log(diss);
+            }
 
-            // console.log("Métodos de findDishes...");
-            // // Criterio.
-            // const criterion = (dish) => dish.name === "Plato";
+            console.log("Métodos de findDishes...");
+            for (let da of manager.findDishes(criterion, ordered)) {
+                console.log(da);
+            }
 
-            // // Para que este ordenado.
-            // const ordered = (a, b) => a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase();
-
-            // for (let da of manager.findDishes(criterion, ordered)) {
-            //     console.log(da);
-            // }
-
-            // console.log("Métodos de remove...");
-            // manager.removeCategory(cat2);
-            // manager.removeMenu(men2);
-            // manager.removeAllergen(all2);
-            // manager.removeDish(dis1);
-            // console.log(manager.removeRestaurant(res2)); // El console para comprobar que los datos se han eliminado bien.
-
+            console.log("Métodos de remove...");
+            manager.removeCategory(cat2);
+            manager.removeMenu(men2);
+            manager.removeAllergen(all2);
+            manager.removeDish(dis1);
+            console.log(manager.removeRestaurant(res2)); // El console para comprobar que los datos se han eliminado bien.
         } catch (error) {
             console.log(error);
         }
